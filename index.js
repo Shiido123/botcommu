@@ -529,473 +529,536 @@ bot.on("message", async function (message) {
             }, ms(bantime));
         };
 
-        };
-        if (command === `warn`) {
-            if (message.mentions.members.size == 1) {
+    };
 
-                if (!message.member.hasPermission("KICK_MEMBERS")) {
-                    message.reply("Jeune padawan, Vous n'avez pas les perms pour ban une personne. Réessaye")
+    if (command === `warn`) {
+        if (message.mentions.members.size == 1) {
+
+            if (!message.member.hasPermission("KICK_MEMBERS")) {
+                message.reply("Jeune padawan, Vous n'avez pas les perms pour ban une personne. Réessaye")
 
 
-                }
-                else {
-                    user = message.mentions.members.first();
-                    args.splice(args.indexOf(`<@!${user.id}>`), 1);
-                    message.channel.send(" " + user.displayName + " a bien été warn sur le serveur.");
-                    user.send("Tu as été warn pour **" + args.join(" ") + "**")
-                }
+            }
+            else {
+                user = message.mentions.members.first();
+                args.splice(args.indexOf(`<@!${user.id}>`), 1);
+                message.channel.send(" " + user.displayName + " a bien été warn sur le serveur.");
+                user.send("Tu as été warn pour **" + args.join(" ") + "**")
             }
         }
+    }
 
 
-        if (command === `loveletter`) {
-            if (message.mentions.members.size == 1) {
+    if (command === `loveletter`) {
+        if (message.mentions.members.size == 1) {
 
-                if (!message.member.hasPermission("SEND_MESSAGES")) {
-                    message.reply("Jeune padawan, Vous n'avez pas les perms pour ban une personne. Réessaye")
+            if (!message.member.hasPermission("SEND_MESSAGES")) {
+                message.reply("Jeune padawan, Vous n'avez pas les perms pour ban une personne. Réessaye")
 
 
-                }
-                else {
-                    let loveEmbed = new Discord.MessageEmbed()
-                        .setTitle('💌 Tu as reçu une lettre d\'amour 💌')
-                        .setColor('#E75A70')
-                        .setThumbnail('https://cdn.discordapp.com/attachments/544697145664602132/673778637018759168/love-letter.png')
-                        .setDescription(`Tu as reçu une lettre d'amour de <@${message.author.id}>`)
+            }
+            else {
+                let loveEmbed = new Discord.MessageEmbed()
+                    .setTitle('💌 Tu as reçu une lettre d\'amour 💌')
+                    .setColor('#E75A70')
+                    .setThumbnail('https://cdn.discordapp.com/attachments/544697145664602132/673778637018759168/love-letter.png')
+                    .setDescription(`Tu as reçu une lettre d'amour de <@${message.author.id}>`)
 
-                    user = message.mentions.members.first();
-                    user.send(loveEmbed)
-                    message.channel.send("Lettre d'amour envoyée")
-                }
+                user = message.mentions.members.first();
+                user.send(loveEmbed)
+                message.channel.send("Lettre d'amour envoyée")
             }
         }
-
-        if (command === `invitebot`) {
-            {
-
-                if (!message.member.hasPermission("SEND_MESSAGES")) {
-                    message.reply("Jeune padawan, Vous n'avez pas les perms pour ban une personne. Réessaye")
+    }
 
 
-                }
-                else {
-                    let inviteEmbed = new Discord.MessageEmbed()
-                        .setTitle('Tu as reçu unn nouveau message !')
-                        .setColor('#E75A70')
-                        .setThumbnail(message.author.displayAvatarURL({ dynamic: true }))
-                        .setDescription(`Voici le lien d'invitation pour ajouter le bot à ton serveur ;))`)
-                        .addField('\u200B', 'https://discord.com/api/oauth2/authorize?client_id=880812526340821022&permissions=8&scope=bot')
+    if (command === `invitebot`) {
+        {
 
-                    member = message.author
-                    member.send(inviteEmbed)
-                    message.channel.send("Lien du bot envoyé")
-                }
+            if (!message.member.hasPermission("SEND_MESSAGES")) {
+                message.reply("Jeune padawan, Vous n'avez pas les perms pour ban une personne. Réessaye")
+
+
+            }
+            else {
+                let inviteEmbed = new Discord.MessageEmbed()
+                    .setTitle('Tu as reçu unn nouveau message !')
+                    .setColor('#E75A70')
+                    .setThumbnail(message.author.displayAvatarURL({ dynamic: true }))
+                    .setDescription(`Voici le lien d'invitation pour ajouter le bot à ton serveur ;))`)
+                    .addField('\u200B', 'https://discord.com/api/oauth2/authorize?client_id=880812526340821022&permissions=8&scope=bot')
+
+                member = message.author
+                member.send(inviteEmbed)
+                message.channel.send("Lien du bot envoyé")
             }
         }
+    }
 
-        if (command === "clear") {
+    if (command === `support`) {
+        {
 
-            if (!message.member.hasPermission("ADMINISTRATOR")) return message.channel.send("Invalid permissions.").then(msg => msg.delete(10000));
-            if (!args[0]) return message.channel.send("S'il vous plaît précisez le nombre de messages que vous voulez clear").then(msg => msg.delete(5000));
-            if (args[0] > 100) return message.channel.send("Veuillez fournir un nombre de messages inférieur à 100 à supprimer.").then(msg => msg.delete(5000));
-            message.channel.bulkDelete(args[0]).then(() => {
-                message.channel.send(`${args[0]} Mesages ont été supprimés dans <#${message.channel.id}>.`).then(msg => msg.delete(10000));
+            if (!message.member.hasPermission("SEND_MESSAGES")) {
+                message.reply("Tu n'as pas les perms dommage :(")
+
+
+            }
+            else {
+
+                message.reply("Voici le serv support bg\nhttps://discord.gg/VGYcq559RS")
+            }
+        }
+    }
+
+    if (command === "clear") {
+
+        if (!message.member.hasPermission("ADMINISTRATOR")) return message.channel.send("Invalid permissions.").then(msg => msg.delete(10000));
+        if (!args[0]) return message.channel.send("S'il vous plaît précisez le nombre de messages que vous voulez clear").then(msg => msg.delete(5000));
+        if (args[0] > 100) return message.channel.send("Veuillez fournir un nombre de messages inférieur à 100 à supprimer.").then(msg => msg.delete(5000));
+        message.channel.bulkDelete(args[0]).then(() => {
+            message.channel.send(`${args[0]} Mesages ont été supprimés dans <#${message.channel.id}>.`).then(msg => msg.delete(10000));
+        });
+    }
+
+
+    if (command === "lock") {
+        if (!message.member.hasPermission("MANAGE_CHANNELS")) {
+            message.reply("Jeune padawan, Vous n'avez pas les perms pour lock un channel. Réessaye")
+            console.log("pas owner");
+            return;
+        }
+
+        else {
+
+            // message.channel.updateOverwrite(message.channel.guild.roles, { SEND_MESSAGES: false })
+            message.channel.updateOverwrite(message.guild.roles.everyone, {
+                SEND_MESSAGES: false,
+                ADD_REACTIONS: false
             });
-        }
+            message.channel.send(`Lock avec succès **${message.channel.name}**`)
 
-
-        if (command === "lock") {
-            if (!message.member.hasPermission("MANAGE_CHANNELS")) {
-                message.reply("Jeune padawan, Vous n'avez pas les perms pour lock un channel. Réessaye")
-                console.log("pas owner");
-                return;
-            }
-
-            else {
-
-                // message.channel.updateOverwrite(message.channel.guild.roles, { SEND_MESSAGES: false })
-                message.channel.updateOverwrite(message.guild.roles.everyone, {
-                    SEND_MESSAGES: false,
-                    ADD_REACTIONS: false
-                });
-                message.channel.send(`Lock avec succès **${message.channel.name}**`)
-
-            };
         };
-        if (command === "nuke") {
-            if (!message.member.hasPermission("MANAGE_CHANNELS")) {
-                message.channel.send('Vous n\'avez pas la permission pour faire ça !')
-                return;
-            }
-            else {
-                message.channel.clone().then(channel => {
-                    channel.setPosition(message.channel.position)
-                    channel.send('https://i.gifer.com/6Ip.gif')
-                })
-                message.channel.delete()
+    };
 
-            };
+    if (command === "locktime") {
+        if (!message.member.hasPermission("MANAGE_CHANNELS")) {
+            message.reply("Jeune padawan, Vous n'avez pas les perms pour lock un channel. Réessaye")
+            console.log("pas owner");
+            return;
         }
 
-        if (command === "unlock") {
-            if (!message.member.hasPermission("MANAGE_CHANNELS")) {
-                message.reply("Jeune padawan, Vous n'avez pas les perms pour lock un channel. Réessaye")
-                console.log("pas owner");
-                return;
-            }
+        else {
 
-            else {
 
-                // message.channel.updateOverwrite(message.channel.guild.roles, { SEND_MESSAGES: false })
+            let locktime = args[0];
+            if (!locktime) return message.reply("Vous n'avez pas défini de temps pour la durée du lock");
+
+            message.channel.updateOverwrite(message.guild.roles.everyone, {
+                SEND_MESSAGES: false,
+                ADD_REACTIONS: false
+            });
+
+            const lockeembed = new Discord.MessageEmbed()
+                .setColor(0x00FFFF)
+                .setTimestamp()
+                .addField('Action:', 'Lock tempo ')
+                .addField('Moderateur:', `${message.author.username}`)
+                .addField('Durée', ms(ms(locktime)))
+                .setFooter(`© Shiido`);
+            message.channel.send(lockeembed);
+
+
+
+            setTimeout(function () {
+
                 message.channel.updateOverwrite(message.guild.roles.everyone, {
                     SEND_MESSAGES: true,
                     ADD_REACTIONS: true
                 });
                 message.channel.send(`Unlock **${message.channel.name}**`)
 
-            };
-        };
-        if (command === "tempmute") {
-            if (!message.member.hasPermission("MUTE_MEMBERS" || "ADMINISTRATOR")) {
-                message.reply("Jeune padawan, Vous n'avez pas les perms pour mute une personne.")
-                return;
-            }
-            if (args.length < 1) {
-                console.log('manque un paramètre');
-            }
-            else {
+            }, ms(locktime));
 
-                let tomute = message.mentions.users.first() || message.guild.members.cache.get(args[0]);
-                if (!tomute) return message.reply("Je ne trouve pas l'utilisateur");
-                if (message.author.id === message.mentions.users.first()) return message.reply("You can't mute yourself:facepalm:");
-                let muteRole = message.guild.roles.cache.find(val => val.name === "Muted");
-                if (!muteRole) {
-                    try {
-                        muteRole = await message.guild.roles.create({
-                            data: {
-                                name: "Muted",
-                                color: "#000000",
-                                permissions: [],
-                                position: 3
-                            }
-                        });
-                        message.guild.channels.cache.forEach(async (channel, id) => {
-                            await channel.createOverwrite(muteRole, {
-                                SEND_MESSAGES: false,
-                                MANAGE_MESSAGES: false,
-                                READ_MESSAGES: false,
-                                ADD_REACTIONS: false
-
-
-                            });
-                        });
-                    } catch (e) {
-                        console.log(e.stack);
-                    }
-                }
-                let mutetime = args[1];
-                if (!mutetime) return message.reply("Vous n'avez pas défini de temps pour la personne mute");
-
-                const tempmuteembed = new Discord.MessageEmbed()
-                    .setColor(0x00FFFF)
-                    .setTimestamp()
-                    .addField('Action:', 'Temp Mute')
-                    .addField('User:', `${tomute.username}#${tomute.discriminator} (${tomute.id})`)
-                    .addField('Moderateur:', `${message.author.username}#${message.author.discriminator}`)
-                    .addField('Durée', ms(ms(mutetime)))
-                    .setFooter(`© Shiido`);
-                message.channel.send(tempmuteembed);
-
-                message.guild.member(tomute).roles.add(muteRole);
-
-                setTimeout(function () {
-                    message.guild.member(tomute).roles.remove(muteRole)
-                    message.channel.send(`<@${tomute.id}> a été unmute`)
-                }, ms(mutetime));
-
-            }
-
-
-
-        };
-
-        if (command === "mute") {
-            if (!message.member.hasPermission("MUTE_MEMBERS" || "ADMINISTRATOR")) {
-                message.reply("Jeune padawan, Vous n'avez pas les perms pour mute une personne.")
-                return;
-            }
-            if (args.length < 1) {
-                console.log('manque un paramètre');
-            }
-            else {
-
-                let tomute = message.mentions.users.first() || message.guild.members.cache.get(args[0]);
-                if (!tomute) return message.reply("Je ne trouve pas l'utilisateur");
-                if (message.author.id === message.mentions.users.first()) return message.reply("You can't mute yourself:facepalm:");
-                let muteRole = message.guild.roles.cache.find(val => val.name === "Muted");
-                if (!muteRole) {
-                    try {
-                        muteRole = await message.guild.roles.create({
-                            data: {
-                                name: "Muted",
-                                color: "#000000",
-                                permissions: [],
-                                position: 3
-                            }
-                        });
-                        message.guild.channels.cache.forEach(async (channel, id) => {
-                            await channel.createOverwrite(muteRole, {
-                                SEND_MESSAGES: false,
-                                MANAGE_MESSAGES: false,
-                                READ_MESSAGES: false,
-                                ADD_REACTIONS: false
-
-
-                            });
-                        });
-                    } catch (e) {
-                        console.log(e.stack);
-                    }
-                }
-
-                const muteembed = new Discord.MessageEmbed()
-                    .setColor(0x00FFFF)
-                    .setTimestamp()
-                    .addField('Action:', 'Mute')
-                    .addField('User:', `${tomute.username}#${tomute.discriminator} (${tomute.id})`)
-                    .addField('Moderateur:', `${message.author.username}#${message.author.discriminator}`)
-                    .setFooter(`© Shiido`);
-                message.channel.send(muteembed);
-
-                message.guild.member(tomute).roles.add(muteRole);
-
-
-            }
-
-
-
-        };
-
-        if (command === "unmute") {
-            if (!message.member.hasPermission("MUTE_MEMBERS" || "ADMINISTRATOR")) {
-                message.reply("Jeune padawan, Vous n'avez pas les perms pour mute une personne.")
-                return;
-            }
-            if (args.length < 1) {
-                console.log('manque un paramètre');
-            }
-            else {
-
-                let tomute = message.mentions.users.first() || message.guild.members.cache.get(args[0]);
-                if (!tomute) return message.reply("Je ne trouve pas l'utilisateur");
-                if (message.author.id === message.mentions.users.first()) return message.reply("You can't unmute yourself:facepalm:");
-                let muteRole = message.guild.roles.cache.find(val => val.name === "Muted");
-
-                const unmuteembed = new Discord.MessageEmbed()
-                    .setColor(0x00FFFF)
-                    .setTimestamp()
-                    .addField('Action:', 'Unmute')
-                    .addField('User:', `${tomute.username}#${tomute.discriminator} (${tomute.id})`)
-                    .addField('Moderateur:', `${message.author.username}#${message.author.discriminator}`)
-                    .setFooter(`© Shiido`);
-                message.channel.send(unmuteembed);
-
-                message.guild.member(tomute).roles.remove(muteRole);
-
-
-            }
-
-
-
-        };
-        if (command === "help") {
-            const helpmbed = new Discord.MessageEmbed()
-                .setColor('#0099ff')
-                .setTitle("Préfix `?`")
-                .addField('Modération', '`kick` `ban` `unban` `tempban` `warn` `lock` `unlock` `clear` `nuke` `antilink` `tempmute` `mute` `unmute` ')
-                .addField('Fun', '`kiss` `slap` `hug` `fight` `nsfw` `cat` `roulette` `8ball` `punch`')
-                .addField('Utiles', '`ticket` `close-ticket` `avatar` `profil` `snipe` `météo` `serveur` `statbot` `invitebot`')
-                .addField('Musique', '`play` `skip` `stop`')
-                .setThumbnail("https://cdn.discordapp.com/avatars/688655906384379961/a_17e47b92401f9d9365b9c55809971965.gif")
-            message.channel.send(helpmbed);
         }
-        if (command === "unban") {
-            if (!message.member.hasPermission("BAN_MEMBERS")) {
-                message.reply(` Vous n'avez pas les permissions pour deban des personnes.`)
-            }
 
-            if (!message.guild.me.hasPermission("BAN_MEMBERS")) {
-                message.reply(`**${message.author.username}**, Je n'ai pas les permissions pour deban des gens.`)
-            }
 
-            let userID = args[0]
-            message.guild.fetchBans().then(bans => {
-                if (bans.size == 0) return
-                let bUser = bans.find(b => b.user.id == userID)
-                if (!bUser) return
-                message.guild.members.unban(bUser.user)
-                message.reply('cette personne a bien été deban')
+
+    };
+    if (command === "nuke") {
+        if (!message.member.hasPermission("MANAGE_CHANNELS")) {
+            message.channel.send('Vous n\'avez pas la permission pour faire ça !')
+            return;
+        }
+        else {
+            message.channel.clone().then(channel => {
+                channel.setPosition(message.channel.position)
+                channel.send('https://i.gifer.com/6Ip.gif')
             })
+            message.channel.delete()
 
-        }
+        };
+    }
 
-        const serverQueue = queue.get(message.guild.id);
-
-        if (command === "play") {
-            execute(message, serverQueue);
-            return;
-        } else if (command === "skip") {
-            skip(message, serverQueue);
-            return;
-        } else if (command === "stop") {
-            stop(message, serverQueue);
+    if (command === "unlock") {
+        if (!message.member.hasPermission("MANAGE_CHANNELS")) {
+            message.reply("Jeune padawan, Vous n'avez pas les perms pour lock un channel. Réessaye")
+            console.log("pas owner");
             return;
         }
-        if (command === "snipe") {
 
-            const msg = bot.snipes.get(message.channel.id)
-            const embedd = new Discord.MessageEmbed()
-                .setColor("#0099ff")
-                .setDescription(" :x:| Il y a rien a snipe!")
-            if (!msg) return message.channel.send(embedd)
-            const embed = new Discord.MessageEmbed()
-                .setAuthor(msg.author, msg.avatar)
-                .setDescription(msg.content)
-                .setColor("#0099ff")
-                .setTimestamp()
-            if (msg.image) embed.setImage(msg.image)
+        else {
 
-            message.channel.send(embed)
+            // message.channel.updateOverwrite(message.channel.guild.roles, { SEND_MESSAGES: false })
+            message.channel.updateOverwrite(message.guild.roles.everyone, {
+                SEND_MESSAGES: true,
+                ADD_REACTIONS: true
+            });
+            message.channel.send(`Unlock **${message.channel.name}**`)
 
-
+        };
+    };
+    if (command === "tempmute") {
+        if (!message.member.hasPermission("MUTE_MEMBERS" || "ADMINISTRATOR")) {
+            message.reply("Jeune padawan, Vous n'avez pas les perms pour mute une personne.")
+            return;
         }
-        if (command === `say`) {
-
-            message.reply(args.join(" "));
-            message.delete()
-
-
+        if (args.length < 1) {
+            console.log('manque un paramètre');
         }
+        else {
 
-        if (command === `user`) {
-            let user = message.author;
-            let muser = message.member;
+            let tomute = message.mentions.users.first() || message.guild.members.cache.get(args[0]);
+            if (!tomute) return message.reply("Je ne trouve pas l'utilisateur");
+            if (message.author.id === message.mentions.users.first()) return message.reply("You can't mute yourself:facepalm:");
+            let muteRole = message.guild.roles.cache.find(val => val.name === "Muted");
+            if (!muteRole) {
+                try {
+                    muteRole = await message.guild.roles.create({
+                        data: {
+                            name: "Muted",
+                            color: "#000000",
+                            permissions: [],
+                            position: 3
+                        }
+                    });
+                    message.guild.channels.cache.forEach(async (channel, id) => {
+                        await channel.createOverwrite(muteRole, {
+                            SEND_MESSAGES: false,
+                            MANAGE_MESSAGES: false,
+                            READ_MESSAGES: false,
+                            ADD_REACTIONS: false
 
-            let status = ""
-            if (status === null) status = "No Game"
-            if (muser.presence.activities[0].type == 'CUSTOM_STATUS') {
-                let cstatus = muser.presence.activities[0].state
-                if (muser.presence.activities[0].emoji) {
-                    if (muser.presence.activities[0].emoji.animated == true) {
-                        cstatus = `<a:${muser.presence.activities[0].emoji.name}:${muser.presence.activities[0].emoji.id}> ${cstatus}`
-                    }
-                    if (muser.presence.activities[0].emoji.animated !== true) {
-                        cstatus = `<:${muser.presence.activities[0].emoji.name}:${muser.presence.activities[0].emoji.id}>${cstatus}`
-                    }
+
+                        });
+                    });
+                } catch (e) {
+                    console.log(e.stack);
                 }
-                status = `Custom Status:\n${cstatus}\nApp:\n${muser.presence.activities[0].name}`
-            } else {
-                status = `${muser.presence.activities[0].type.toLowerCase()}: ${muser.presence.activities[0].name}`
+            }
+            let mutetime = args[1];
+            if (!mutetime) return message.reply("Vous n'avez pas défini de temps pour la personne mute");
+
+            const tempmuteembed = new Discord.MessageEmbed()
+                .setColor(0x00FFFF)
+                .setTimestamp()
+                .addField('Action:', 'Temp Mute')
+                .addField('User:', `${tomute.username}#${tomute.discriminator} (${tomute.id})`)
+                .addField('Moderateur:', `${message.author.username}#${message.author.discriminator}`)
+                .addField('Durée', ms(ms(mutetime)))
+                .setFooter(`© Shiido`);
+            message.channel.send(tempmuteembed);
+
+            message.guild.member(tomute).roles.add(muteRole);
+
+            setTimeout(function () {
+                message.guild.member(tomute).roles.remove(muteRole)
+                message.channel.send(`<@${tomute.id}> a été unmute`)
+            }, ms(mutetime));
+
+        }
+
+
+
+    };
+
+    if (command === "mute") {
+        if (!message.member.hasPermission("MUTE_MEMBERS" || "ADMINISTRATOR")) {
+            message.reply("Jeune padawan, Vous n'avez pas les perms pour mute une personne.")
+            return;
+        }
+        if (args.length < 1) {
+            console.log('manque un paramètre');
+        }
+        else {
+
+            let tomute = message.mentions.users.first() || message.guild.members.cache.get(args[0]);
+            if (!tomute) return message.reply("Je ne trouve pas l'utilisateur");
+            if (message.author.id === message.mentions.users.first()) return message.reply("You can't mute yourself:facepalm:");
+            let muteRole = message.guild.roles.cache.find(val => val.name === "Muted");
+            if (!muteRole) {
+                try {
+                    muteRole = await message.guild.roles.create({
+                        data: {
+                            name: "Muted",
+                            color: "#000000",
+                            permissions: [],
+                            position: 3
+                        }
+                    });
+                    message.guild.channels.cache.forEach(async (channel, id) => {
+                        await channel.createOverwrite(muteRole, {
+                            SEND_MESSAGES: false,
+                            MANAGE_MESSAGES: false,
+                            READ_MESSAGES: false,
+                            ADD_REACTIONS: false
+
+
+                        });
+                    });
+                } catch (e) {
+                    console.log(e.stack);
+                }
             }
 
-            const embed = new Discord.MessageEmbed();
-            embed.addField("Username", `${user.username}#${user.discriminator}`, true)
-                .addField("ID", `${user.id}`, true)
-                .setColor(3447003)
-                .setThumbnail(`${user.avatarURL()}`)
+            const muteembed = new Discord.MessageEmbed()
+                .setColor(0x00FFFF)
                 .setTimestamp()
-                .setURL(`${user.avatarURL()}`)
-                .addField('Actuellement', `${muser.presence.status.toUpperCase()}`, true)
-                .addField('Joue à', status, true)
-                .addField('A rejoins discord', `${moment(user.createdAt).toString().substr(0, 15)}\n(${moment(user.createdAt).fromNow()})`, true)
-                .addField('A rejoins le serveur', `${moment(muser.joinedAt).toString().substr(0, 15)}\n(${moment(muser.joinedAt).fromNow()})`, true)
-                .addField('Roles', `${muser.roles.cache.array()}`, true)
-                .addField('Bot ?', `${user.bot.toString().toUpperCase()}`, true)
+                .addField('Action:', 'Mute')
+                .addField('User:', `${tomute.username}#${tomute.discriminator} (${tomute.id})`)
+                .addField('Moderateur:', `${message.author.username}#${message.author.discriminator}`)
+                .setFooter(`© Shiido`);
+            message.channel.send(muteembed);
 
+            message.guild.member(tomute).roles.add(muteRole);
+
+
+        }
+
+
+
+    };
+
+    if (command === "unmute") {
+        if (!message.member.hasPermission("MUTE_MEMBERS" || "ADMINISTRATOR")) {
+            message.reply("Jeune padawan, Vous n'avez pas les perms pour mute une personne.")
+            return;
+        }
+        if (args.length < 1) {
+            console.log('manque un paramètre');
+        }
+        else {
+
+            let tomute = message.mentions.users.first() || message.guild.members.cache.get(args[0]);
+            if (!tomute) return message.reply("Je ne trouve pas l'utilisateur");
+            if (message.author.id === message.mentions.users.first()) return message.reply("You can't unmute yourself:facepalm:");
+            let muteRole = message.guild.roles.cache.find(val => val.name === "Muted");
+
+            const unmuteembed = new Discord.MessageEmbed()
+                .setColor(0x00FFFF)
+                .setTimestamp()
+                .addField('Action:', 'Unmute')
+                .addField('User:', `${tomute.username}#${tomute.discriminator} (${tomute.id})`)
+                .addField('Moderateur:', `${message.author.username}#${message.author.discriminator}`)
+                .setFooter(`© Shiido`);
+            message.channel.send(unmuteembed);
+
+            message.guild.member(tomute).roles.remove(muteRole);
+
+
+        }
+    }
+
+
+
+
+    if (command === "help") {
+        const helpmbed = new Discord.MessageEmbed()
+            .setColor('#0099ff')
+            .setTitle("Préfix `?`")
+            .addField('Modération', '`kick` `ban` `unban` `tempban` `warn` `lock` `unlock` `locktime` `clear` `nuke` `antilink` `tempmute` `mute` `unmute` ')
+            .addField('Fun', '`kiss` `slap` `hug` `fight` `nsfw` `cat` `roulette` `8ball` `punch`')
+            .addField('Utiles', '`ticket` `close-ticket` `avatar` `profil` `snipe` `météo` `serveur` `statbot` `invitebot` `support`')
+            .addField('Musique', '`play` `skip` `stop`')
+            .setThumbnail("https://cdn.discordapp.com/avatars/688655906384379961/a_17e47b92401f9d9365b9c55809971965.gif")
+        message.channel.send(helpmbed);
+    }
+    if (command === "unban") {
+        if (!message.member.hasPermission("BAN_MEMBERS")) {
+            message.reply(` Vous n'avez pas les permissions pour deban des personnes.`)
+        }
+
+        if (!message.guild.me.hasPermission("BAN_MEMBERS")) {
+            message.reply(`**${message.author.username}**, Je n'ai pas les permissions pour deban des gens.`)
+        }
+
+        let userID = args[0]
+        message.guild.fetchBans().then(bans => {
+            if (bans.size == 0) return
+            let bUser = bans.find(b => b.user.id == userID)
+            if (!bUser) return
+            message.guild.members.unban(bUser.user)
+            message.reply('cette personne a bien été deban')
+        })
+
+    }
+
+    const serverQueue = queue.get(message.guild.id);
+
+    if (command === "play") {
+        execute(message, serverQueue);
+        return;
+    } else if (command === "skip") {
+        skip(message, serverQueue);
+        return;
+    } else if (command === "stop") {
+        stop(message, serverQueue);
+        return;
+    }
+    if (command === "snipe") {
+
+        const msg = bot.snipes.get(message.channel.id)
+        const embedd = new Discord.MessageEmbed()
+            .setColor("#0099ff")
+            .setDescription(" :x:| Il y a rien a snipe!")
+        if (!msg) return message.channel.send(embedd)
+        const embed = new Discord.MessageEmbed()
+            .setAuthor(msg.author, msg.avatar)
+            .setDescription(msg.content)
+            .setColor("#0099ff")
+            .setTimestamp()
+        if (msg.image) embed.setImage(msg.image)
+
+        message.channel.send(embed)
+
+
+    }
+    if (command === `say`) {
+
+        message.reply(args.join(" "));
+        message.delete()
+
+
+    }
+
+    if (command === `user`) {
+        let user = message.author;
+        let muser = message.member;
+
+        let status = ""
+        if (status === null) status = "No Game"
+        if (muser.presence.activities[0].type == 'CUSTOM_STATUS') {
+            let cstatus = muser.presence.activities[0].state
+            if (muser.presence.activities[0].emoji) {
+                if (muser.presence.activities[0].emoji.animated == true) {
+                    cstatus = `<a:${muser.presence.activities[0].emoji.name}:${muser.presence.activities[0].emoji.id}> ${cstatus}`
+                }
+                if (muser.presence.activities[0].emoji.animated !== true) {
+                    cstatus = `<:${muser.presence.activities[0].emoji.name}:${muser.presence.activities[0].emoji.id}>${cstatus}`
+                }
+            }
+            status = `Custom Status:\n${cstatus}\nApp:\n${muser.presence.activities[0].name}`
+        } else {
+            status = `${muser.presence.activities[0].type.toLowerCase()}: ${muser.presence.activities[0].name}`
+        }
+
+        const embed = new Discord.MessageEmbed();
+        embed.addField("Username", `${user.username}#${user.discriminator}`, true)
+            .addField("ID", `${user.id}`, true)
+            .setColor(3447003)
+            .setThumbnail(`${user.avatarURL()}`)
+            .setTimestamp()
+            .setURL(`${user.avatarURL()}`)
+            .addField('Actuellement', `${muser.presence.status.toUpperCase()}`, true)
+            .addField('Joue à', status, true)
+            .addField('A rejoins discord', `${moment(user.createdAt).toString().substr(0, 15)}\n(${moment(user.createdAt).fromNow()})`, true)
+            .addField('A rejoins le serveur', `${moment(muser.joinedAt).toString().substr(0, 15)}\n(${moment(muser.joinedAt).fromNow()})`, true)
+            .addField('Roles', `${muser.roles.cache.array()}`, true)
+            .addField('Bot ?', `${user.bot.toString().toUpperCase()}`, true)
+
+        message.channel.send({ embed });
+
+
+    }
+
+    if (command === `roulette`) {
+
+        let randomPer = message.guild.members.cache.random().user;
+        message.channel.send(`${randomPer}`)
+
+
+
+    }
+    if (command === 'statbot') {
+
+        var milliseconds = parseInt((bot.uptime % 1000) / 100),
+            seconds = parseInt((bot.uptime / 1000) % 60),
+            minutes = parseInt((bot.uptime / (1000 * 60)) % 60),
+            hours = parseInt((bot.uptime / (1000 * 60 * 60)) % 24);
+        days = parseInt((bot.uptime / (1000 * 60 * 60 * 24)) % 60);
+        days = (days < 10) ? "0" + days : days;
+        hours = (hours < 10) ? "0" + hours : hours;
+        minutes = (minutes < 10) ? "0" + minutes : minutes;
+        seconds = (seconds < 10) ? "0" + seconds : seconds;
+        osutils.cpuUsage(function (v) {
+            const embed = new Discord.MessageEmbed()
+                .setColor(0x7289DA)
+                .setThumbnail(bot.user.avatarURL({ format: 'png', dynamic: true, size: 2048 }))
+                .setURL(bot.user.avatarURL({ format: 'png', dynamic: true, size: 2048 }))
+                .setTimestamp()
+                .addField("Shiido le bg de la street magl", "Show the bot's stats.")
+                .addField("-------------------------------------------------------------------------------", "----------------------------------------------------------------------------")
+                .addField("Server Prefix", "?", true)
+                .addField("Global Prefix", config.prefix, true)
+                .addField("Total Commands", `41 commands`, true)
+                .addField("Total Servers", `${bot.guilds.cache.size}`, true)
+                .addField("Total Channels", `${bot.channels.cache.size}`, true)
+                .addField("Total Users", `${bot.users.cache.size}`, true)
+                .addField("Bot Version", package["version"], true)
+                .addField("Library", "Discord.js v12", true)
+                .addField("Developpeur", `${package["author"]}`, true)
+                .addField("-------------------------------------------------------------------------------", "----------------------------------------------------------------------------")
+                .addField("Platforme", osutils.platform(), true)
+                .addField("VPS CPU Cores", osutils.cpuCount() + " Cores", true)
+                .addField("CPU Usage", `${(v * 100).toString().split(".")[0] + "." + (v * 100).toString().split(".")[1].split('')[0] + (v * 100).toString().split(".")[1].split('')[1]}%`, true)
+                .addField("Total Mémoire", osutils.totalmem().toString().split(".")[0] + "." + osutils.totalmem().toString().split(".")[1].split('')[0] + osutils.totalmem().toString().split(".")[1].split('')[1] + "MB", true)
+                .addField("RAM Usage Of VPS", `${(osutils.totalmem() - osutils.freemem()).toString().split(".")[0] + "." + (osutils.totalmem() - osutils.freemem()).toString().split(".")[1].split('')[0] + (osutils.totalmem() - osutils.freemem()).toString().split(".")[1].split('')[1]}/${osutils.totalmem().toString().split(".")[0] + "." + osutils.totalmem().toString().split(".")[1].split('')[0] + osutils.totalmem().toString().split(".")[1].split('')[1]}MB`, true)
+                .addField("RAM Usage Of Bot", (process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2) + "MB/" + osutils.totalmem().toString().split(".")[0] + "." + osutils.totalmem().toString().split(".")[1].split('')[0] + osutils.totalmem().toString().split(".")[1].split('')[1] + "MB", true)
+                .addField("RAM Usage Of VPS %", `${(100 - osutils.freememPercentage() * 100).toString().split(".")[0] + "." + (100 - osutils.freememPercentage() * 100).toString().split(".")[1].split('')[0] + (100 - osutils.freememPercentage() * 100).toString().split(".")[1].split('')[1]}%`, true)
+                .addField("Ping", Math.round(bot.ws.ping) + "ms", true)
+                .addField("Uptime", days + "d " + hours + "h " + minutes + "m " + seconds + "." + milliseconds + "s", true)
+                .setFooter(`© ${package["author"]} bot`);
             message.channel.send({ embed });
 
+        })
+    }
 
+
+    var reponses = ["effectivement", "nan", "Oui", "je ne préfère pas répondre à cette question", "dur à dire", "y'a que la vérité qui blesse", "clairement", "nan heureusement pour lui"]
+    var text = Math.floor(Math.random() * reponses.length);
+    if (command === `8ball`) {
+
+        message.channel.send(reponses[text]);
+
+
+
+    }
+
+    if (command === "dmall") {
+        if (!message.member.hasPermission("ADMINISTRATOR")) {
+            message.channel.send('Vous n\'avez pas la permission pour faire ça !')
+            return;
         }
+        else {
+            message.guild.members.cache.forEach(member => { // Looping through each member of the guild.
+                // Trying to send a message to the member.
+                // This method might fail because of the member's privacy settings, so we're using .catch
+                member.send(args.join(" ")).catch(e => console.error(`Je n'ai pas pu dm ${member.user.tag}`));
 
-        if (command === `roulette`) {
-
-            let randomPer = message.guild.members.cache.random().user;
-            message.channel.send(`${randomPer}`)
-
-
-
-        }
-        if (command === 'statbot') {
-
-            var milliseconds = parseInt((bot.uptime % 1000) / 100),
-                seconds = parseInt((bot.uptime / 1000) % 60),
-                minutes = parseInt((bot.uptime / (1000 * 60)) % 60),
-                hours = parseInt((bot.uptime / (1000 * 60 * 60)) % 24);
-            days = parseInt((bot.uptime / (1000 * 60 * 60 * 24)) % 60);
-            days = (days < 10) ? "0" + days : days;
-            hours = (hours < 10) ? "0" + hours : hours;
-            minutes = (minutes < 10) ? "0" + minutes : minutes;
-            seconds = (seconds < 10) ? "0" + seconds : seconds;
-            osutils.cpuUsage(function (v) {
-                const embed = new Discord.MessageEmbed()
-                    .setColor(0x7289DA)
-                    .setThumbnail(bot.user.avatarURL({ format: 'png', dynamic: true, size: 2048 }))
-                    .setURL(bot.user.avatarURL({ format: 'png', dynamic: true, size: 2048 }))
-                    .setTimestamp()
-                    .addField("Shiido le bg de la street magl", "Show the bot's stats.")
-                    .addField("-------------------------------------------------------------------------------", "----------------------------------------------------------------------------")
-                    .addField("Server Prefix", "?", true)
-                    .addField("Global Prefix", config.prefix, true)
-                    .addField("Total Commands", `41 commands`, true)
-                    .addField("Total Servers", `${bot.guilds.cache.size}`, true)
-                    .addField("Total Channels", `${bot.channels.cache.size}`, true)
-                    .addField("Total Users", `${bot.users.cache.size}`, true)
-                    .addField("Bot Version", package["version"], true)
-                    .addField("Library", "Discord.js v12", true)
-                    .addField("Developpeur", `${package["author"]}`, true)
-                    .addField("-------------------------------------------------------------------------------", "----------------------------------------------------------------------------")
-                    .addField("Platforme", osutils.platform(), true)
-                    .addField("VPS CPU Cores", osutils.cpuCount() + " Cores", true)
-                    .addField("CPU Usage", `${(v * 100).toString().split(".")[0] + "." + (v * 100).toString().split(".")[1].split('')[0] + (v * 100).toString().split(".")[1].split('')[1]}%`, true)
-                    .addField("Total Mémoire", osutils.totalmem().toString().split(".")[0] + "." + osutils.totalmem().toString().split(".")[1].split('')[0] + osutils.totalmem().toString().split(".")[1].split('')[1] + "MB", true)
-                    .addField("RAM Usage Of VPS", `${(osutils.totalmem() - osutils.freemem()).toString().split(".")[0] + "." + (osutils.totalmem() - osutils.freemem()).toString().split(".")[1].split('')[0] + (osutils.totalmem() - osutils.freemem()).toString().split(".")[1].split('')[1]}/${osutils.totalmem().toString().split(".")[0] + "." + osutils.totalmem().toString().split(".")[1].split('')[0] + osutils.totalmem().toString().split(".")[1].split('')[1]}MB`, true)
-                    .addField("RAM Usage Of Bot", (process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2) + "MB/" + osutils.totalmem().toString().split(".")[0] + "." + osutils.totalmem().toString().split(".")[1].split('')[0] + osutils.totalmem().toString().split(".")[1].split('')[1] + "MB", true)
-                    .addField("RAM Usage Of VPS %", `${(100 - osutils.freememPercentage() * 100).toString().split(".")[0] + "." + (100 - osutils.freememPercentage() * 100).toString().split(".")[1].split('')[0] + (100 - osutils.freememPercentage() * 100).toString().split(".")[1].split('')[1]}%`, true)
-                    .addField("Ping", Math.round(bot.ws.ping) + "ms", true)
-                    .addField("Uptime", days + "d " + hours + "h " + minutes + "m " + seconds + "." + milliseconds + "s", true)
-                    .setFooter(`© ${package["author"]} bot`);
-                message.channel.send({ embed });
-
-            })
-        }
+            });
 
 
-        var reponses = ["effectivement", "nan", "Oui", "je ne préfère pas répondre à cette question", "dur à dire", "y'a que la vérité qui blesse", "clairement", "nan heureusement pour lui"]
-        var text = Math.floor(Math.random() * reponses.length);
-        if (command === `8ball`) {
-
-            message.channel.send(reponses[text]);
-
-
-
-        }
-
-        if (command === "dmall") {
-            if (!message.member.hasPermission("ADMINISTRATOR")) {
-                message.channel.send('Vous n\'avez pas la permission pour faire ça !')
-                return;
-            }
-            else {
-                message.guild.members.cache.forEach(member => { // Looping through each member of the guild.
-                    // Trying to send a message to the member.
-                    // This method might fail because of the member's privacy settings, so we're using .catch
-                    member.send(args.join(" ")).catch(e => console.error(`Je n'ai pas pu dm ${member.user.tag}`));
-
-                });
-
-
-            };
-        }
+        };
+    }
 
 
 
@@ -1003,7 +1066,7 @@ bot.on("message", async function (message) {
 
 
 
-    });
+});
 async function execute(message, serverQueue) {
     const args = message.content.split(" ");
 
