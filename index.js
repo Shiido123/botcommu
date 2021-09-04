@@ -163,6 +163,24 @@ bot.on("message", async function (message) {
         }
 
     }
+
+    var imageskill = ["https://cdn.discordapp.com/attachments/862039734288121906/883432537039458394/Akame_ga_Kill.gif", "https://cdn.discordapp.com/attachments/862039734288121906/883432535621771354/tenor_15.gif", "https://cdn.discordapp.com/attachments/862039734288121906/883432533121974302/tumblr_meber1O6Rz1rmpytho1_500.gif", "https://cdn.discordapp.com/attachments/862039734288121906/883432532144713808/R_9.gif", "https://cdn.discordapp.com/attachments/862039734288121906/883432529766527056/tenor_16.gif", "https://cdn.discordapp.com/attachments/862039734288121906/883432527333851156/OIP_64.jpg", "https://cdn.discordapp.com/attachments/862039734288121906/883433158513688576/c94c3b0c391a8fcaf1d056ba1a7d1f9aa62f011b_hq.gif", "https://cdn.discordapp.com/attachments/862039734288121906/883433159751000064/R_10.gif"];
+    var image = Math.floor(Math.random() * images.length);
+
+
+    if (command === `kill`) {
+        if (message.mentions.members.size == 1) {
+            let member = message.mentions.members.first()
+
+            let killembed = new Discord.MessageEmbed()
+
+                .addField('\u200B', `:crossed_swords:  **${message.author} tue ${member}**`)
+                .setImage(imageskill[image])
+
+            message.channel.send(killembed);
+        }
+
+    }
     var imagegifht = ["https://cdn.discordapp.com/attachments/865683498308599808/873552901358899220/tumblr_n4nbpfK8EN1tpso7yo1_500.gif", "https://cdn.discordapp.com/attachments/865683498308599808/873552898376749086/naruto_kun.gif", "https://cdn.discordapp.com/attachments/865683498308599808/873552884791394334/kakashi_bbou.gif", "https://cdn.discordapp.com/attachments/865683498308599808/873552879825338409/dsxgx.gif", "https://cdn.discordapp.com/attachments/865683498308599808/873552873164779581/cvncnc.gif", "https://cdn.discordapp.com/attachments/865683498308599808/873552869301829642/ab6720ae3b40d4f0b79cd2ad6a259066.gif", "https://cdn.discordapp.com/attachments/865683498308599808/873552877073870898/dfa65baad7f63329064bb95881d34299.gif", "https://cdn.discordapp.com/attachments/865683498308599808/873552866634248273/560e3d83a2136eab78377f646ef2eba4.gif", "https://cdn.discordapp.com/attachments/865683498308599808/873552857801043998/200.gif", "https://cdn.discordapp.com/attachments/880809764995596329/881895560393662484/Naruto-697-1.png", "https://cdn.discordapp.com/attachments/880809764995596329/881895561832312903/anime-fight-gif-22.gif", "https://cdn.discordapp.com/attachments/880809764995596329/881895568459317309/88fb93eeb76ddb11b1cbcd7ddd405b56.gif", "https://cdn.discordapp.com/attachments/880809764995596329/881895810047049748/tumblr_oe9mgne53U1tiivhqo3_500.gif"];
     var image = Math.floor(Math.random() * images.length);
 
@@ -531,6 +549,7 @@ bot.on("message", async function (message) {
 
     };
 
+
     if (command === `warn`) {
         if (message.mentions.members.size == 1) {
 
@@ -876,7 +895,7 @@ bot.on("message", async function (message) {
             .setColor('#0099ff')
             .setTitle("Préfix `?`")
             .addField('Modération', '`kick` `ban` `unban` `tempban` `warn` `lock` `unlock` `locktime` `clear` `nuke` `antilink` `tempmute` `mute` `unmute` ')
-            .addField('Fun', '`kiss` `slap` `hug` `fight` `nsfw` `cat` `roulette` `8ball` `punch`')
+            .addField('Fun', '`kiss` `slap` `hug` `fight` `nsfw` `cat` `roulette` `8ball` `punch` `kill`')
             .addField('Utiles', '`ticket` `close-ticket` `avatar` `profil` `snipe` `météo` `serveur` `statbot` `invitebot` `support`')
             .addField('Musique', '`play` `skip` `stop`')
             .setThumbnail("https://cdn.discordapp.com/avatars/688655906384379961/a_17e47b92401f9d9365b9c55809971965.gif")
@@ -1042,29 +1061,41 @@ bot.on("message", async function (message) {
 
 
     }
-
-    if (command === "dmall") {
+    if (command === "addrole") {
         if (!message.member.hasPermission("ADMINISTRATOR")) {
-            message.channel.send('Vous n\'avez pas la permission pour faire ça !')
-            return;
+            message.channel.send("Vous n'avez pas les permissions requises.")
+
+        } else {
+            if (message.mentions.members.first() && message.mentions.roles.first()) {
+                member = message.mentions.members.first()
+                role = message.mentions.roles.first()
+
+                member.roles.add(role);
+                message.channel.send("rôle ajouté")
+            }
+
+
         }
-        else {
-            message.guild.members.cache.forEach(member => { // Looping through each member of the guild.
-                // Trying to send a message to the member.
-                // This method might fail because of the member's privacy settings, so we're using .catch
-                member.send(args.join(" ")).catch(e => console.error(`Je n'ai pas pu dm ${member.user.tag}`));
-
-            });
 
 
-        };
     }
 
+    if (command === "removerole") {
+        if (!message.member.hasPermission("ADMINISTRATOR")) {
+            message.channel.send("Vous n'avez pas les permissions requises.")
+
+        } else {
+            if (message.mentions.members.first() && message.mentions.roles.first()) {
+                member = message.mentions.members.first()
+                role = message.mentions.roles.first()
+
+                member.roles.remove(role);
+                message.channel.send("rôle supprimé")
 
 
-
-
-
+            }
+        }
+    }
 
 });
 async function execute(message, serverQueue) {
