@@ -894,13 +894,15 @@ bot.on("message", async function (message) {
         const helpmbed = new Discord.MessageEmbed()
             .setColor('#0099ff')
             .setTitle("Préfix `?`")
-            .addField('Modération', '`kick` `ban` `unban` `tempban` `warn` `lock` `unlock` `locktime` `clear` `nuke` `antilink` `tempmute` `mute` `unmute` ')
-            .addField('Fun', '`kiss` `slap` `hug` `fight` `nsfw` `cat` `roulette` `8ball` `punch` `kill`')
+            .addField('Modération', '`kick` `ban` `unban` `tempban` `warn` `lock` `unlock` `locktime` `clear` `nuke` `antilink` `tempmute` `mute` `unmute` `addrole` `removerole` ')
+            .addField('Fun', '`kiss` `slap` `hug` `fight` `nsfw` `cat` `roulette` `8ball` `punch` `kill` `flip`')
             .addField('Utiles', '`ticket` `close-ticket` `avatar` `profil` `snipe` `météo` `serveur` `statbot` `invitebot` `support`')
             .addField('Musique', '`play` `skip` `stop`')
             .setThumbnail("https://cdn.discordapp.com/avatars/688655906384379961/a_17e47b92401f9d9365b9c55809971965.gif")
         message.channel.send(helpmbed);
     }
+
+
     if (command === "unban") {
         if (!message.member.hasPermission("BAN_MEMBERS")) {
             message.reply(` Vous n'avez pas les permissions pour deban des personnes.`)
@@ -1061,6 +1063,33 @@ bot.on("message", async function (message) {
 
 
     }
+
+    var reponseflip = ["pile", "face"]
+    var text = Math.floor(Math.random() * reponseflip.length);
+    if (command === `flip`) {
+        const flipembed = new Discord.MessageEmbed()
+
+            .setTitle(message.author.username)
+            .addField('\u200b',reponseflip[text])
+            .setColor(0xffffff)
+            .setThumbnail(message.author.displayAvatarURL({ dynamic: true }))
+        message.channel.send(flipembed);
+
+    }
+
+    var reponsepfc = ["pierre", "papier", "ciseaux"]
+    var text = Math.floor(Math.random() * reponsepfc.length);
+    if (command === `pfc`) {
+
+        const pfcembed = new Discord.MessageEmbed()
+            .setTitle(message.author.username)
+            .addField('\u200b', message.author.username + " a choisi " + args[0] + " et le bot a choisi " + reponsepfc[text])
+            .setColor(0xffffff)
+
+        message.channel.send(pfcembed);
+
+    }
+
     if (command === "addrole") {
         if (!message.member.hasPermission("ADMINISTRATOR")) {
             message.channel.send("Vous n'avez pas les permissions requises.")
