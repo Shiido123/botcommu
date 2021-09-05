@@ -79,6 +79,8 @@ const ytdl = require('ytdl-core');
 const queue = new Map();
 
 
+
+
 bot.once("ready", () => {
     console.log("Ready!");
 });
@@ -160,6 +162,46 @@ bot.on("message", async function (message) {
                 .setImage(images[image])
 
             message.channel.send(kissembed);
+        }
+
+    }
+
+    var imagedance = ["https://cdn.discordapp.com/attachments/860179147472109601/884058195302154260/Dance_015.gif", "https://cdn.discordapp.com/attachments/860179147472109601/884058190478725210/animesher.com_dance-gif-anime-gifs-1414144.gif", "https://cdn.discordapp.com/attachments/860179147472109601/884058186737401886/unnamed.gif", "https://cdn.discordapp.com/attachments/860179147472109601/884058180471099422/telechargement_35.jpg", "https://cdn.discordapp.com/attachments/860179147472109601/884058900133994506/0063719c03ad81912a165ade89967d6c.gif", "https://cdn.discordapp.com/attachments/860179147472109601/884058900326920222/1a4e7e3d9fb7e1d5e8ccc2d3787bc39d.gif", "https://cdn.discordapp.com/attachments/860179147472109601/884058894085804052/sailor-moon-usagi-tsukino.gif", "https://cdn.discordapp.com/attachments/860179147472109601/884058893167255563/anime-dancing.gif"];
+    var image = Math.floor(Math.random() * images.length);
+
+
+    if (command === `dance`) {
+        if (message.mentions.members.size == 1) {
+            let member = message.mentions.members.first()
+
+            let danceembed = new Discord.MessageEmbed()
+
+                .addField('\u200B', `**${message.author} danse avec ${member}**`)
+                .setImage(imagedance[image])
+                .setThumbnail(message.author.displayAvatarURL({ dynamic: true }))
+                .setFooter("Dev by shiido")
+
+            message.channel.send(danceembed);
+        }
+
+    }
+
+    imagebaka = ["https://cdn.discordapp.com/attachments/860179147472109601/884056730684772412/dwv4cP1.gif", "https://cdn.discordapp.com/attachments/860179147472109601/884056729078337556/OK6W_koKDTOqqqLDbIoPAi0ZVCvHHGYQeIt0FpVyRWc.gif", "https://cdn.discordapp.com/attachments/860179147472109601/884055786832138260/baka-anime.gif", "https://cdn.discordapp.com/attachments/860179147472109601/884055785984917544/DiscreteCrispBighorn-size_restricted.gif", "https://cdn.discordapp.com/attachments/860179147472109601/884055779026554950/baka.gif", "https://cdn.discordapp.com/attachments/860179147472109601/884055778967818280/HalfOptimalAfricanpiedkingfisher-max-1mb.gif", "https://cdn.discordapp.com/attachments/860179147472109601/884055777839562792/giphy_1.gif", "https://cdn.discordapp.com/attachments/860179147472109601/884055776438652938/anime-baka-gif-one-piece-Favim.com-2200762.gif"];
+    var image = Math.floor(Math.random() * images.length);
+
+
+    if (command === `baka`) {
+        if (message.mentions.members.size == 1) {
+            let member = message.mentions.members.first()
+
+            let bakaembed = new Discord.MessageEmbed()
+
+                .addField('\u200B', `**${member} tu es baka**`)
+                .setImage(imagebaka[image])
+                .setThumbnail(message.author.displayAvatarURL({ dynamic: true }))
+                .setFooter("Dev by shiido")
+
+            message.channel.send(bakaembed);
         }
 
     }
@@ -370,6 +412,28 @@ bot.on("message", async function (message) {
         message.channel.send(AVATARembed);
 
     };
+
+    if (command === "banner") {
+        const { MessageEmbed } = require('discord.js');
+        const axios = require('axios');
+        const user = message.mentions.users.first() || bot.users.cache.get(args[0]) || await bot.users.fetch(args[0]).catch(err => undefined);
+        if (!user) return message.reply('Vous n\'avez pas définis la personne').catch(console.error);
+
+
+
+        axios.get(`https://cryptons.ga/api/v1/userbanner?id=${user.id}`)
+            .then(function (response) {
+                if (response.data.url === "null") return message.reply('cette personne n\'a pas de bannière')
+                const embedbanner = new MessageEmbed()
+                    .setTitle(`Bannière`)
+                    .setImage(response.data.url)
+                    .setColor('RANDOM')
+                message.channel.send(embedbanner);
+            });
+
+    };
+
+
 
     if (command === "serveur") {
 
@@ -886,6 +950,20 @@ bot.on("message", async function (message) {
 
         }
     }
+    if (command === "suggest") {
+        const support = bot.guilds.cache.get("865213165665910805")
+        const suggestembed = new Discord.MessageEmbed()
+            .setTitle(message.author.username)
+            .setThumbnail(message.author.displayAvatarURL({ dynamic: true }))
+            .addField('Suggestion', args.join(" "))
+            .setFooter('dev by shiido')
+
+
+
+        support.channels.cache.get('880809889897807892').send(suggestembed)
+
+    }
+
 
 
 
@@ -894,9 +972,9 @@ bot.on("message", async function (message) {
         const helpmbed = new Discord.MessageEmbed()
             .setColor('#0099ff')
             .setTitle("Préfix `?`")
-            .addField('Modération', '`kick` `ban` `unban` `tempban` `warn` `lock` `unlock` `locktime` `clear` `nuke` `antilink` `tempmute` `mute` `unmute` `addrole` `removerole` ')
+            .addField('Modération', '`kick` `ban` `unban` `tempban` `warn` `lock` `unlock` `locktime` `clear` `nuke` `antilink` `tempmute` `mute` `unmute` `addrole` `removerole` `dance` `baka` ')
             .addField('Fun', '`kiss` `slap` `hug` `fight` `nsfw` `cat` `roulette` `8ball` `punch` `kill` `flip`')
-            .addField('Utiles', '`ticket` `close-ticket` `avatar` `profil` `snipe` `météo` `serveur` `statbot` `invitebot` `support`')
+            .addField('Utiles', '`ticket` `close-ticket` `avatar` `banner` `profil` `snipe` `météo` `serveur` `statbot` `invitebot` `support` `suggest`')
             .addField('Musique', '`play` `skip` `stop`')
             .setThumbnail("https://cdn.discordapp.com/avatars/688655906384379961/a_17e47b92401f9d9365b9c55809971965.gif")
         message.channel.send(helpmbed);
@@ -1070,7 +1148,7 @@ bot.on("message", async function (message) {
         const flipembed = new Discord.MessageEmbed()
 
             .setTitle(message.author.username)
-            .addField('\u200b',reponseflip[text])
+            .addField('\u200b', reponseflip[text])
             .setColor(0xffffff)
             .setThumbnail(message.author.displayAvatarURL({ dynamic: true }))
         message.channel.send(flipembed);
