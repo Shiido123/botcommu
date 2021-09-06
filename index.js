@@ -82,7 +82,21 @@ const queue = new Map();
 
 
 bot.once("ready", () => {
-    console.log("Ready!");
+
+    const logs = bot.guilds.cache.get("865213165665910805")
+    const restartembed = new Discord.MessageEmbed()
+        .setTitle("🌙・Luna#9172")
+        .setThumbnail(bot.user.avatarURL({ format: 'png', dynamic: true, size: 2048 }))
+        .setDescription('**bot redémarré**')
+
+    logs.channels.cache.get('880809590252527666').send(restartembed)
+
+    // "ready" isn't really ready. We need to wait a spell.
+    console.log("Bot online!");
+
+    bot.user.setActivity("💖・Luna  le best bot. Prefix [?]", {
+        type: "WATCHING"
+    });
 });
 
 bot.once("reconnecting", () => {
@@ -106,6 +120,15 @@ bot.on("message", async function (message) {
 
 
     }
+    if (message.content === '<@!880812526340821022>') {
+        message.channel.send("mon préfix est `?` Pour voir toutes mes comandes faites `?help`")
+    }
+    if (message.content === '<@!650012302984347669>') {
+        message.channel.send("elle est trop blg itsu")
+    }
+    if (message.content === '<@!688655906384379961>') {
+        message.channel.send("Créateur du bot, viens pas me dm petite salope on est pas pote")
+    }
     // et des messages qui ne sont pas préfixés par notre préfixe
     if (!message.content.startsWith(config.prefix)) return;
 
@@ -117,9 +140,7 @@ bot.on("message", async function (message) {
     // on positionne la comand avec le premier élément du tableau et en forçant des minuscules
     const command = args.shift().toLowerCase();
 
-    if (message.content === '<@!880812526340821022>') {
-        message.channel.send("mon préfix est `?` Pour voir toutes mes comandes faites `?help`")
-    }
+
     if (command === "ping") {
 
         const timeTaken = Date.now() - message.createdTimestamp;
@@ -129,6 +150,20 @@ bot.on("message", async function (message) {
         message.channel.send('Boop.');
     } else if (command === "server") {
         message.channel.send(`Nom du serveur: **${message.guild.name}**\nTotal members: **${message.guild.memberCount}**`);
+    }
+
+    if (command === "bvn") {
+        const { guild } = message;
+        let embedbvn = new Discord.MessageEmbed()
+
+            .setDescription(`**Bienvenue a toi sur ${message.guild.name}**`)
+            .addField(`\u200B`, `${message.author} te souhaite la bienvenue parmis nous, nous sommes désormais **${message.guild.memberCount}** :tools: `)
+            .setThumbnail(guild.iconURL())
+            .setFooter('🌛・Luna bot by shiido#1000')
+
+        message.channel.send(embedbvn);
+
+
     }
 
     if (command === "tos") {
@@ -974,10 +1009,11 @@ bot.on("message", async function (message) {
             .setTitle("Préfix `?`")
             .addField('Modération', '`kick` `ban` `unban` `tempban` `warn` `lock` `unlock` `locktime` `clear` `nuke` `antilink` `tempmute` `mute` `unmute` `addrole` `removerole` `dance` `baka` ')
             .addField('Fun', '`kiss` `slap` `hug` `fight` `nsfw` `cat` `roulette` `8ball` `punch` `kill` `flip`')
-            .addField('Utiles', '`ticket` `close-ticket` `avatar` `banner` `profil` `snipe` `météo` `serveur` `statbot` `invitebot` `support` `suggest`')
+            .addField('Utiles', '`ticket` `close-ticket` `avatar` `banner` `profil` `snipe` `météo` `serveur` `statbot` `invitebot` `support` `suggest` `help`')
             .addField('Musique', '`play` `skip` `stop`')
             .setThumbnail("https://cdn.discordapp.com/avatars/688655906384379961/a_17e47b92401f9d9365b9c55809971965.gif")
         message.channel.send(helpmbed);
+
     }
 
 
@@ -1168,6 +1204,18 @@ bot.on("message", async function (message) {
 
     }
 
+    if (command === `counter`) {
+
+        const counterembed = new Discord.MessageEmbed()
+            .setTitle(message.author.username)
+            .addField("Total Servers", `${bot.guilds.cache.size}`, true)
+            .setThumbnail(message.author.displayAvatarURL({ dynamic: true }))
+            .setColor(0xffffff)
+
+        message.channel.send(counterembed);
+
+    }
+
     if (command === "addrole") {
         if (!message.member.hasPermission("ADMINISTRATOR")) {
             message.channel.send("Vous n'avez pas les permissions requises.")
@@ -1203,6 +1251,7 @@ bot.on("message", async function (message) {
             }
         }
     }
+
 
 });
 async function execute(message, serverQueue) {
@@ -1296,14 +1345,7 @@ function play(guild, song) {
 
 
 
-bot.on('ready', async () => {
-    // "ready" isn't really ready. We need to wait a spell.
-    console.log("Bot online!");
 
-    bot.user.setActivity("💖・Luna  le best bot. Prefix [?]", {
-        type: "WATCHING"
-    });
-});
 
 bot.snipes = new Discord.Collection();
 
@@ -1321,7 +1363,23 @@ bot.on('messageDelete', function (message) {
 
 });
 
+bot.on("guildMemberAdd", function (member) {
+    // TODO ajouter ici un test pour vérifier que le nouveau membre n'est pas un bot et si c'est le cas sortir
 
+
+    // yep, un nouveau !
+    console.log('new_user');
+    
+    const testEmbed = new Discord.MessageEmbed()
+        .setColor('#0099ff')
+        .addField('\u200B', `**${member.user} vient de rejoindre le serveur** `)
+        .setImage('https://cdn.discordapp.com/attachments/882579394680459264/884522044723712041/c63cae1344766f14d9d184e5aafed065.gif')
+
+
+    const bvnChannel = member.guild.channels.cache.find(channel => channel.id === "880809182117367868");
+    // A real basic message with the information we need. 
+    bvnChannel.send(testEmbed);
+});
 
 
 
